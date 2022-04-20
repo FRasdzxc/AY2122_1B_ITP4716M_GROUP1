@@ -30,7 +30,7 @@ public class PowerUp : MonoBehaviour
         if (isDirectionUp)
         {
             amtPower += Time.deltaTime * powerSpeed;
-            if(amtPower > 100)
+            if (amtPower > 100)
             {
                 isDirectionUp = false;
                 amtPower = 100.0f;
