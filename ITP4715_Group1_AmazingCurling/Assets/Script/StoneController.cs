@@ -175,4 +175,9 @@ public class StoneController : MonoBehaviour
             SpawnClone();
         }
     }
+    public int GetThrowPower()
+    {
+
+    }
 }
+  

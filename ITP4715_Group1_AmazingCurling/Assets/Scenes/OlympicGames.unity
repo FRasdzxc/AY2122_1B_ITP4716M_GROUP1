@@ -400,11 +400,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 127208131}
-  - component: {fileID: 127208133}
   - component: {fileID: 127208132}
+  - component: {fileID: 127208135}
   - component: {fileID: 127208134}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Power Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -484,8 +484,28 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &127208133
+      m_Calls:
+      - m_Target: {fileID: 127208135}
+        m_TargetAssemblyTypeName: PowerUp, Assembly-CSharp
+        m_MethodName: ChangePower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!222 &127208134
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127208130}
+  m_CullTransparentMesh: 1
+--- !u!114 &127208135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -497,16 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05fce033fc970404cae6e338638eaa8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagePowerUp: {fileID: 77330509}
-  textPowerAmt: {fileID: 1074393951}
---- !u!222 &127208134
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 127208130}
-  m_CullTransparentMesh: 1
+  powerSlider: {fileID: 127208132}
 --- !u!1 &158380363
 GameObject:
   m_ObjectHideFlags: 0
