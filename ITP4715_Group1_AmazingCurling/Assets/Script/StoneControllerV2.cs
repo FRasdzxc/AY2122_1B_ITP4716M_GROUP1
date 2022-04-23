@@ -51,6 +51,7 @@ public class StoneControllerV2 : MonoBehaviour
 
             if (plane.Raycast(ray, out dist))
             {
+                lR.enabled = true;
                 throwDir.position = ray.GetPoint(dist);
                 throwDir.position = (throwDir.position - clone.transform.position).normalized * 1.5f + clone.transform.position;
             }
@@ -60,7 +61,7 @@ public class StoneControllerV2 : MonoBehaviour
                 //powerbar
                 powerbar.value = power / 2;
                 currentpower.text = powerbar.value.ToString("#"); // # remove decimal
-                power += Time.deltaTime * 200;
+                power += Time.deltaTime * 100;
                 timer.pauseTimer();
 
             }
