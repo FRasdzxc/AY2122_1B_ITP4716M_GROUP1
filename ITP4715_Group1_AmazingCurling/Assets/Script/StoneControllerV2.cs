@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class StoneControllerV2 : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class StoneControllerV2 : MonoBehaviour
     [SerializeField] private Transform throwDir;
     [SerializeField] private Transform validArea;
     [SerializeField] private GameObject timers;
+    [SerializeField] private TMP_Text currentpower;
     Timer timer;
 
     private GameObject clone;
@@ -28,6 +31,8 @@ public class StoneControllerV2 : MonoBehaviour
 
     private LineRenderer lR;
     private ScoreController[] sC;
+
+    public Slider powerbar;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +57,9 @@ public class StoneControllerV2 : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
+                //powerbar
+                powerbar.value = power / 2;
+                currentpower.text = powerbar.value.ToString("#"); // # remove decimal
                 power += Time.deltaTime * 200;
                 timer.pauseTimer();
 
