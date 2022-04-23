@@ -9,6 +9,7 @@ public class ScoreController : MonoBehaviour
     private bool canExpand;
     private float time;
     private string winTag;
+    private string winTeam;
     private int winScore;
     private bool canAddScore;
 
@@ -42,10 +43,17 @@ public class ScoreController : MonoBehaviour
                             break;
                     }
 
-                    Debug.Log(winTag + " wins! Score: " + winScore);
+                    if (winTag == "RedClone")
+                        winTeam = "Red Team";
+                    else
+                        winTeam = "Yellow Team";
+
+                    Debug.Log(winTeam + " wins! Score: " + winScore);
                 }
                 else
                 {
+                    winTeam = "No Team";
+                    winScore = 0;
                     Debug.Log("no one scored :c");
                 }
             }
@@ -76,5 +84,15 @@ public class ScoreController : MonoBehaviour
         SetupController();
         col.enabled = true;
         canExpand = true;
+    }
+
+    public string GetTeam()
+    {
+        return winTeam;
+    }
+
+    public int GetScore()
+    {
+        return winScore;
     }
 }
