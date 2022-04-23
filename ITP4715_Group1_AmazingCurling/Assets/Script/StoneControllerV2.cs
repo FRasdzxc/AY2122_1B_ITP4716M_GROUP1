@@ -45,7 +45,7 @@ public class StoneControllerV2 : MonoBehaviour
             if (plane.Raycast(ray, out dist))
             {
                 throwDir.position = ray.GetPoint(dist);
-                throwDir.position = (throwDir.position - spawnPos.position).normalized * 1.5f + spawnPos.position;
+                throwDir.position = (throwDir.position - clone.transform.position).normalized * 1.5f + clone.transform.position;
             }
 
             if (Input.GetMouseButton(0))
@@ -61,10 +61,25 @@ public class StoneControllerV2 : MonoBehaviour
                 Debug.Log(power); // remove this
 
                 Rigidbody rB = clone.GetComponent<Rigidbody>();
-                rB.AddForce((throwDir.position - spawnPos.position) * power, ForceMode.Impulse);
+                rB.AddForce((throwDir.position - clone.transform.position) * power, ForceMode.Impulse);
 
                 cloneActive = false;
                 power = 1f;
+            }
+
+            if (Input.GetMouseButton(1))
+            {
+                lR.enabled = false;
+                clone.transform.position = ray.GetPoint(dist);
+
+                if (Vector3.Distance(spawnPos.position, clone.transform.position) > 1.5f)
+                {
+                    clone.transform.position = (clone.transform.position - spawnPos.position).normalized * 1.5f + spawnPos.position;
+                }
+            }
+            else if (Input.GetMouseButtonUp(1))
+            {
+                lR.enabled = true;
             }
 
             if (turnTime > 20)
@@ -75,8 +90,7 @@ public class StoneControllerV2 : MonoBehaviour
                 // sends a message to gui saying that time has run out for turn, switched turn
             }
 
-            lR.enabled = true;
-            lR.SetPosition(0, spawnPos.position + new Vector3(0, 0.1f, 0));
+            lR.SetPosition(0, clone.transform.position + new Vector3(0, 0.1f, 0));
             lR.SetPosition(1, throwDir.position + new Vector3(0, 0.1f, 0));
 
             turnTime += Time.deltaTime;
@@ -145,6 +159,7 @@ public class StoneControllerV2 : MonoBehaviour
         cloneActive = true;
         turnTime = 0f;
         thrownTime = 0f;
+        lR.enabled = true;
 
         mainCamera.transform.position = clone.transform.position + new Vector3(0, 2, -2.75f);
         mainCamera.transform.eulerAngles = new Vector3(30f, 0f, 0f);
