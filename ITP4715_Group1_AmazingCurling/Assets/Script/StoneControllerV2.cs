@@ -10,6 +10,8 @@ public class StoneControllerV2 : MonoBehaviour
     [SerializeField] private Transform spawnPos;
     [SerializeField] private Transform throwDir;
     [SerializeField] private Transform validArea;
+    [SerializeField] private GameObject timers;
+    Timer timer;
 
     private GameObject clone;
     private bool cloneActive;
@@ -26,11 +28,11 @@ public class StoneControllerV2 : MonoBehaviour
 
     private LineRenderer lR;
     private ScoreController[] sC;
-
     // Start is called before the first frame update
     void Start()
     {
         SetupController();
+        timer = timers.GetComponent<Timer>();
     }
 
     // Update is called once per frame
@@ -51,6 +53,8 @@ public class StoneControllerV2 : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 power += Time.deltaTime * 200;
+                timer.pauseTimer();
+
             }
             else if (Input.GetMouseButtonUp(0))
             {
@@ -185,6 +189,7 @@ public class StoneControllerV2 : MonoBehaviour
         if (end == maxEnd && round == 8 && turn == Turn.yellow)
         {
             Debug.Log("game ended with " + end + " end(s)"); // remove this
+
             // gui stating which team wins
             for (int i = 0; i < end; i++)
             {
@@ -217,6 +222,7 @@ public class StoneControllerV2 : MonoBehaviour
                     round++;
                 }
                 SpawnClone();
+                timer.resetTimer();
                 Debug.Log("end " + end + ", round " + round + ", turn " + turn); // remove this
                 // gui tracking end, round and turn
             }
