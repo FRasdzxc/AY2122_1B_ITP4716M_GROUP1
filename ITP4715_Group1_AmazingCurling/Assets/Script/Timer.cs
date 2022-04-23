@@ -8,6 +8,7 @@ public class Timer : MonoBehaviour
     private bool status;
     public float myTimer = 20f;
     public Slider slider;
+    ColorChange cc;
     Text text;
     // Start is called before the first frame update
     void Start()

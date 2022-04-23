@@ -15,6 +15,7 @@ public class StoneControllerV2 : MonoBehaviour
     [SerializeField] private GameObject timers;
     [SerializeField] private TMP_Text currentpower;
     Timer timer;
+    ColorChange cc;
 
     private GameObject clone;
     private bool cloneActive;
@@ -65,7 +66,7 @@ public class StoneControllerV2 : MonoBehaviour
                 currentpower.text = powerbar.value.ToString("#"); // # remove decimal
                 power += Time.deltaTime * 100;
                 timer.pauseTimer();
-
+                cc.pauseColor();
             }
             else if (Input.GetMouseButtonUp(0))
             {
@@ -224,21 +225,22 @@ public class StoneControllerV2 : MonoBehaviour
                 turn = Turn.red;
                 SpawnClone();
             }
-        }
-        else
-        {
-            if (turn == Turn.red)
-            {
-                turn = Turn.yellow;
-            }
             else
             {
-                turn = Turn.red;
-                round++;
+                if (turn == Turn.red)
+                {
+                    turn = Turn.yellow;
+                }
+                else
+                {
+                    turn = Turn.red;
+                    round++;
+                }
+                SpawnClone();
+                timer.resetTimer();
+                Debug.Log("end " + end + ", round " + round + ", turn " + turn); // remove this
+                // gui tracking end, round and turn
             }
-            SpawnClone();
-            Debug.Log("end " + end + ", round " + round + ", turn " + turn); // remove this
-            // gui tracking end, round and turn
         }
     }
 
