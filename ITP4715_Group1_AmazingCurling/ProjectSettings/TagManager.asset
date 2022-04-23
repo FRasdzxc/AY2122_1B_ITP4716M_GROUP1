@@ -8,6 +8,9 @@ TagManager:
   - YellowClone
   - ScoreController
   - StoneController
+  - ZoomController
+  - InvalidClone
+  - Score
   layers:
   - Default
   - TransparentFX

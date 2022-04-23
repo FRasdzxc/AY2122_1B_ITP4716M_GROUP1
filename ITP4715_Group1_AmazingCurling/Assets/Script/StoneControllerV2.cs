@@ -26,11 +26,13 @@ public class StoneControllerV2 : MonoBehaviour
     private enum Turn { red, yellow };
     private Turn turn;
     private int round;
+    private int maxRound;
     private int end;
     private int maxEnd;
 
     private LineRenderer lR;
-    private ScoreController[] sC;
+    private Score[] score;
+    private ZoomController zC;
 
     public Slider powerbar;
     // Start is called before the first frame update
@@ -71,7 +73,6 @@ public class StoneControllerV2 : MonoBehaviour
                 {
                     power = 200;
                 }
-                Debug.Log(power); // remove this
 
                 Rigidbody rB = clone.GetComponent<Rigidbody>();
                 rB.AddForce((throwDir.position - clone.transform.position) * power, ForceMode.Impulse);
@@ -98,9 +99,9 @@ public class StoneControllerV2 : MonoBehaviour
             if (turnTime > 20)
             {
                 Debug.Log("turn timeout"); // remove this
+                // sends a message to gui saying that time has run out for turn, switched turn
                 Destroy(clone);
                 SwitchTurn();
-                // sends a message to gui saying that time has run out for turn, switched turn
             }
 
             lR.SetPosition(0, clone.transform.position + new Vector3(0, 0.1f, 0));
@@ -134,10 +135,11 @@ public class StoneControllerV2 : MonoBehaviour
                     {
                         if (!clone.GetComponent<Collider>().bounds.Intersects(validArea.GetComponent<Collider>().bounds))
                         {
-                            Destroy(clone);
                             // send a message to gui saying that the stone (clone) is not valid
+                            Destroy(clone);
                         }
 
+                        clone = null;
                         SwitchTurn();
                         delay = 0f;
                     }
@@ -145,7 +147,9 @@ public class StoneControllerV2 : MonoBehaviour
 
                 if (thrownTime > 8) // when stone (clone) is stuck or clips through the plane
                 {
-                    Destroy(clone);
+                    if (clone)
+                        Destroy(clone);
+
                     SwitchTurn();
                 }
 
@@ -169,10 +173,12 @@ public class StoneControllerV2 : MonoBehaviour
             clone.tag = "YellowClone";
         }
 
+        zC = GameObject.FindGameObjectWithTag("ZoomController").GetComponent<ZoomController>();
+        zC.canZoomIn = false;
+        mainCamera.fieldOfView = 70;
         cloneActive = true;
         turnTime = 0f;
         thrownTime = 0f;
-        lR.enabled = true;
 
         mainCamera.transform.position = clone.transform.position + new Vector3(0, 2, -2.75f);
         mainCamera.transform.eulerAngles = new Vector3(30f, 0f, 0f);
@@ -193,48 +199,46 @@ public class StoneControllerV2 : MonoBehaviour
         }
     }
 
-    private void SwitchTurn()
+    private void SwitchTurn() // a bit broken
     {
-        if (end == maxEnd && round == 8 && turn == Turn.yellow)
+        if (round == maxRound && turn == Turn.yellow) // round ends
         {
-            Debug.Log("game ended with " + end + " end(s)"); // remove this
+            score[end - 1].SetScore(end);
 
-            // gui stating which team wins
-            for (int i = 0; i < end; i++)
+            if (end == maxEnd)
             {
-                //sC[i] = GameObject.FindGameObjectWithTag("ScoreController").GetComponent<ScoreController>();
-                Debug.Log("end " + (i + 1) + ", " + sC[i].GetTeam() + " wins, score: " + sC[i].GetScore());
+                Debug.Log("game ended"); // remove this
+
+                for (int i = 0; i < end; i++)
+                {
+                    score[i].GetScore(i + 1);
+                }
+
+                // gui pops up with winning team
             }
-            end = 1;
-        }
-        else
-        {
-            if (round == 8 && turn == Turn.yellow) // round ends
+            else
             {
-                sC[end - 1] = GameObject.FindGameObjectWithTag("ScoreController").GetComponent<ScoreController>();
-                sC[end - 1].CountScore();
-
+                RemoveClones();
                 end++;
                 round = 1;
                 turn = Turn.red;
                 SpawnClone();
             }
+        }
+        else
+        {
+            if (turn == Turn.red)
+            {
+                turn = Turn.yellow;
+            }
             else
             {
-                if (turn == Turn.red)
-                {
-                    turn = Turn.yellow;
-                }
-                else
-                {
-                    turn = Turn.red;
-                    round++;
-                }
-                SpawnClone();
-                timer.resetTimer();
-                Debug.Log("end " + end + ", round " + round + ", turn " + turn); // remove this
-                // gui tracking end, round and turn
+                turn = Turn.red;
+                round++;
             }
+            SpawnClone();
+            Debug.Log("end " + end + ", round " + round + ", turn " + turn); // remove this
+            // gui tracking end, round and turn
         }
     }
 
@@ -247,11 +251,17 @@ public class StoneControllerV2 : MonoBehaviour
         turnTime = 0f;
         thrownTime = 0f;
         turn = Turn.red;
-        round = 1;
-        end = 1;
+        round = 1; // must be 1
+        maxRound = 8; // default: 8
+        end = 1; // must be 1
         maxEnd = 1; // player preference
         lR = spawnPos.GetComponent<LineRenderer>();
-        sC = new ScoreController[maxEnd];
+
+        score = new Score[maxEnd];
+        for (int i = 0; i < score.Length; i++)
+        {
+            score[i] = GameObject.FindGameObjectWithTag("Score").GetComponent<Score>();
+        }
 
         SpawnClone();
     }
