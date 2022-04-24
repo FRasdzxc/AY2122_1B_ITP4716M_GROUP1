@@ -19,6 +19,7 @@ public class StoneControllerV2 : MonoBehaviour
     [SerializeField] private ColorChange cc;
     [SerializeField] private GameObject timerSlider;
 
+    private bool stoneShot = false;
     private GameObject clone;
     private bool cloneActive;
     private float power;
@@ -38,6 +39,8 @@ public class StoneControllerV2 : MonoBehaviour
     private ZoomController zC;
 
     public Slider powerbar;
+    public AudioSource SlidingAudio;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +56,7 @@ public class StoneControllerV2 : MonoBehaviour
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             Plane plane = new Plane(Vector3.up, Vector3.up * 0);
             float dist;
+            Rigidbody rB = clone.GetComponent<Rigidbody>();
 
             if (plane.Raycast(ray, out dist))
             {
@@ -71,15 +75,17 @@ public class StoneControllerV2 : MonoBehaviour
             }
             else if (Input.GetMouseButtonUp(0))
             {
+                stoneShot = true;
                 timerSlider.SetActive(false);
                 if (power > 200)
                 {
                     power = 200;
                 }
 
-                Rigidbody rB = clone.GetComponent<Rigidbody>();
+                
                 rB.AddForce((throwDir.position - clone.transform.position) * power, ForceMode.Impulse);
 
+                
                 cloneActive = false;
                 power = 1f;
             }
@@ -111,6 +117,12 @@ public class StoneControllerV2 : MonoBehaviour
             lR.SetPosition(1, throwDir.position + new Vector3(0, 0.1f, 0));
 
             turnTime -= Time.deltaTime;
+
+            if (stoneShot == true)
+            {
+                SlidingAudio.Play();
+            }
+            
         }
         else
         {
@@ -123,7 +135,9 @@ public class StoneControllerV2 : MonoBehaviour
 
                 if (rB.velocity.magnitude == 0)
                 {
+                    stoneShot = false;
                     delay += Time.deltaTime;
+                    
 
                     if (delay >= 1f)
                     {
@@ -137,6 +151,7 @@ public class StoneControllerV2 : MonoBehaviour
                         SwitchTurn();
                         delay = 0f;
                     }
+                    
                 }
                 else
                 {
@@ -148,6 +163,7 @@ public class StoneControllerV2 : MonoBehaviour
                     {
                         rB.AddForce(Vector3.right, ForceMode.Impulse);
                     }
+                    
                 }
 
                 if (thrownTime > 10) // in case if stone (clone) is stuck or clips through the plane

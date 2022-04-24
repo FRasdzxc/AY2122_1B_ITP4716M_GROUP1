@@ -8,7 +8,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
 
-    [SerializeField] private AudioSource _musicSource, _effectsSource;
+    [SerializeField] private AudioSource _musicSource;
 
     void Awake()
     {
@@ -21,10 +21,5 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    public void shot(AudioClip clip)
-    {
-        _effectsSource.PlayOneShot(clip);
     }
 }
