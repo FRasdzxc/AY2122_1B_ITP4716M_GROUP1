@@ -66,7 +66,7 @@ public class StoneControllerV2 : MonoBehaviour
                 //powerbar
                 powerbar.value = power / 2;
                 currentpower.text = powerbar.value.ToString("#"); // # remove decimal
-                power += Time.deltaTime * 100;
+                power += Time.deltaTime * 75;
                 
             }
             else if (Input.GetMouseButtonUp(0))
