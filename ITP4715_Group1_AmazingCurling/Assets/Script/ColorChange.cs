@@ -17,10 +17,8 @@ public class ColorChange : MonoBehaviour
         if (status == true)
         {
             time += Time.deltaTime / duration;
-            Debug.Log(time);
             mat.SetColor("_Color", Color.Lerp(Color.green, Color.red, time));
         }
-
     }
     public void resetColor()
     {
