@@ -122,6 +122,10 @@ public class StoneControllerV2 : MonoBehaviour
             {
                 SlidingAudio.Play();
             }
+            else
+            {
+                SlidingAudio.Stop();
+            }
             
         }
         else
