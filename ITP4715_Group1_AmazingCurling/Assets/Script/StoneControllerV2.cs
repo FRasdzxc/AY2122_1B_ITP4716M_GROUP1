@@ -14,10 +14,9 @@ public class StoneControllerV2 : MonoBehaviour
     [SerializeField] private Transform spawnPos;
     [SerializeField] private Transform throwDir;
     [SerializeField] private Transform validArea;
-    [SerializeField] private GameObject timers;
     [SerializeField] private TMP_Text currentpower;
-    Timer timer;
-    ColorChange cc;
+    [SerializeField] private Timer timer;
+    [SerializeField] private ColorChange cc;
 
     private GameObject clone;
     private bool cloneActive;
@@ -43,7 +42,6 @@ public class StoneControllerV2 : MonoBehaviour
     void Start()
     {
         SetupController();
-        timer = timers.GetComponent<Timer>();
     }
 
     // Update is called once per frame
@@ -68,8 +66,7 @@ public class StoneControllerV2 : MonoBehaviour
                 powerbar.value = power / 2;
                 currentpower.text = powerbar.value.ToString("#"); // # remove decimal
                 power += Time.deltaTime * 100;
-                timer.pauseTimer();
-                cc.pauseColor();
+                
             }
             else if (Input.GetMouseButtonUp(0))
             {
@@ -253,6 +250,8 @@ public class StoneControllerV2 : MonoBehaviour
             Debug.Log("end " + end + ", round " + round + ", turn " + turn); // remove this after gui has added
             // gui tracking end, round and turn
         }
+        timer.resetTimer();
+        cc.resetColor();
     }
 
     private void SetupController()

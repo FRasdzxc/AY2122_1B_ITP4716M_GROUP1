@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    private bool status;
+    private bool status = true;
     public float myTimer = 20f;
     public Slider slider;
-    ColorChange cc;
     Text text;
     // Start is called before the first frame update
     void Start()
@@ -25,10 +24,6 @@ public class Timer : MonoBehaviour
         {
             if (myTimer > 0)
                 myTimer -= Time.deltaTime;
-            slider.value = myTimer;
-            text.text = Mathf.Ceil(myTimer).ToString("00");
-        }else
-        {
             slider.value = myTimer;
             text.text = Mathf.Ceil(myTimer).ToString("00");
         }
