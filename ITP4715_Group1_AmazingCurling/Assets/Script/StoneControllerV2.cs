@@ -17,6 +17,7 @@ public class StoneControllerV2 : MonoBehaviour
     [SerializeField] private TMP_Text currentpower;
     [SerializeField] private Timer timer;
     [SerializeField] private ColorChange cc;
+    [SerializeField] private GameObject timerSlider;
 
     private GameObject clone;
     private bool cloneActive;
@@ -70,6 +71,7 @@ public class StoneControllerV2 : MonoBehaviour
             }
             else if (Input.GetMouseButtonUp(0))
             {
+                timerSlider.SetActive(false);
                 if (power > 200)
                 {
                     power = 200;
@@ -206,6 +208,7 @@ public class StoneControllerV2 : MonoBehaviour
 
     private async void SwitchTurn() // a bit broken
     {
+        timerSlider.SetActive(true);
         if (round == maxRound && turn == Turn.yellow) // round ends
         {
             score[end - 1].SetScore();
