@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -9,6 +10,7 @@ public class StoneControllerV2 : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private GameObject stone1;
     [SerializeField] private GameObject stone2;
+    [SerializeField] private GameObject scoreGobj;
     [SerializeField] private Transform spawnPos;
     [SerializeField] private Transform throwDir;
     [SerializeField] private Transform validArea;
@@ -36,6 +38,7 @@ public class StoneControllerV2 : MonoBehaviour
     private ZoomController zC;
 
     public Slider powerbar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -97,9 +100,9 @@ public class StoneControllerV2 : MonoBehaviour
                 lR.enabled = true;
             }
 
-            if (turnTime > 20)
+            if (turnTime <= 0)
             {
-                Debug.Log("turn timeout"); // remove this
+                Debug.Log("turn timeout"); // remove this after gui has added
                 // sends a message to gui saying that time has run out for turn, switched turn
                 Destroy(clone);
                 SwitchTurn();
@@ -108,7 +111,7 @@ public class StoneControllerV2 : MonoBehaviour
             lR.SetPosition(0, clone.transform.position + new Vector3(0, 0.1f, 0));
             lR.SetPosition(1, throwDir.position + new Vector3(0, 0.1f, 0));
 
-            turnTime += Time.deltaTime;
+            turnTime -= Time.deltaTime;
         }
         else
         {
@@ -118,15 +121,6 @@ public class StoneControllerV2 : MonoBehaviour
                 mainCamera.transform.eulerAngles = new Vector3(30f, 0f, 0f);
 
                 Rigidbody rB = clone.GetComponent<Rigidbody>();
-
-                if (Input.GetMouseButtonDown(0))
-                {
-                    rB.AddForce(-Vector3.right, ForceMode.Impulse);
-                }
-                else if (Input.GetMouseButtonDown(1))
-                {
-                    rB.AddForce(Vector3.right, ForceMode.Impulse);
-                }
 
                 if (rB.velocity.magnitude == 0)
                 {
@@ -145,8 +139,19 @@ public class StoneControllerV2 : MonoBehaviour
                         delay = 0f;
                     }
                 }
+                else
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        rB.AddForce(-Vector3.right, ForceMode.Impulse);
+                    }
+                    else if (Input.GetMouseButtonDown(1))
+                    {
+                        rB.AddForce(Vector3.right, ForceMode.Impulse);
+                    }
+                }
 
-                if (thrownTime > 8) // when stone (clone) is stuck or clips through the plane
+                if (thrownTime > 10) // in case if stone (clone) is stuck or clips through the plane
                 {
                     if (clone)
                         Destroy(clone);
@@ -174,11 +179,13 @@ public class StoneControllerV2 : MonoBehaviour
             clone.tag = "YellowClone";
         }
 
+        powerbar.value = 0;
+        currentpower.text = "0";
         zC = GameObject.FindGameObjectWithTag("ZoomController").GetComponent<ZoomController>();
         zC.canZoomIn = false;
         mainCamera.fieldOfView = 70;
         cloneActive = true;
-        turnTime = 0f;
+        turnTime = 20f;
         thrownTime = 0f;
 
         mainCamera.transform.position = clone.transform.position + new Vector3(0, 2, -2.75f);
@@ -200,47 +207,51 @@ public class StoneControllerV2 : MonoBehaviour
         }
     }
 
-    private void SwitchTurn() // a bit broken
+    private async void SwitchTurn() // a bit broken
     {
         if (round == maxRound && turn == Turn.yellow) // round ends
         {
-            score[end - 1].SetScore(end);
+            score[end - 1].SetScore();
+            await Task.Delay(1000);
+            Debug.Log(score[end - 1].GetTeam() + " won this end with a score of " + score[end - 1].GetScore());
 
             if (end == maxEnd)
             {
-                Debug.Log("game ended"); // remove this
+                Debug.Log("game ended"); // remove this after gui has added
+
+                await Task.Delay(1000);
 
                 for (int i = 0; i < end; i++)
                 {
-                    score[i].GetScore(i + 1);
+                    Debug.Log("End " + end + ", " + score[i].GetTeam() + " won, Score " + score[i].GetScore());
                 }
 
                 // gui pops up with winning team
             }
             else
             {
+                await Task.Delay(1000);
                 RemoveClones();
                 end++;
                 round = 1;
                 turn = Turn.red;
                 SpawnClone();
             }
+        }
+        else
+        {
+            if (turn == Turn.red)
+            {
+                turn = Turn.yellow;
+            }
             else
             {
-                if (turn == Turn.red)
-                {
-                    turn = Turn.yellow;
-                }
-                else
-                {
-                    turn = Turn.red;
-                    round++;
-                }
-                SpawnClone();
-                timer.resetTimer();
-                Debug.Log("end " + end + ", round " + round + ", turn " + turn); // remove this
-                // gui tracking end, round and turn
+                turn = Turn.red;
+                round++;
             }
+            SpawnClone();
+            Debug.Log("end " + end + ", round " + round + ", turn " + turn); // remove this after gui has added
+            // gui tracking end, round and turn
         }
     }
 
@@ -250,19 +261,19 @@ public class StoneControllerV2 : MonoBehaviour
 
         power = 1f;
         delay = 0f;
-        turnTime = 0f;
+        turnTime = 20f;
         thrownTime = 0f;
         turn = Turn.red;
         round = 1; // must be 1
         maxRound = 8; // default: 8
         end = 1; // must be 1
-        maxEnd = 1; // player preference
+        maxEnd = 1; // player preference (set from StartMenu)
         lR = spawnPos.GetComponent<LineRenderer>();
 
         score = new Score[maxEnd];
-        for (int i = 0; i < score.Length; i++)
+        for (int i = 0; i < maxEnd; i++)
         {
-            score[i] = GameObject.FindGameObjectWithTag("Score").GetComponent<Score>();
+            score[i] = Instantiate(scoreGobj).GetComponent<Score>();
         }
 
         SpawnClone();

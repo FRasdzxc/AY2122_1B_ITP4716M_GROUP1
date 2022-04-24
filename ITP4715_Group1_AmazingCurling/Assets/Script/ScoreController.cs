@@ -48,13 +48,13 @@ public class ScoreController : MonoBehaviour
                     else
                         winTeam = "Yellow Team";
 
-                    Debug.Log(winTeam + " wins! Score: " + winScore);
+                    //Debug.Log(winTeam + " wins! Score: " + winScore);
                 }
                 else
                 {
                     winTeam = "No Team";
                     winScore = 0;
-                    Debug.Log("no one scored :c");
+                    //Debug.Log("no one scored :c");
                 }
             }
         }
