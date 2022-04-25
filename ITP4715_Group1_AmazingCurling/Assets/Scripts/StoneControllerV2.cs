@@ -48,10 +48,7 @@ public class StoneControllerV2 : MonoBehaviour
 
     public Slider powerbar;
     public AudioSource SlidingAudio;
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 
 
     // Start is called before the first frame update
@@ -133,11 +130,9 @@ public class StoneControllerV2 : MonoBehaviour
 
             if (stoneShot == true)
             {
-<<<<<<< Updated upstream
+
                 SlidingAudio.Play(); 
-=======
-               SlidingAudio.Play();
->>>>>>> Stashed changes
+
             }
             else
             {
