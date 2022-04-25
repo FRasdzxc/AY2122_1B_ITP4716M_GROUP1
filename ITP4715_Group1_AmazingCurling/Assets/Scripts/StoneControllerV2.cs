@@ -37,10 +37,11 @@ public class StoneControllerV2 : MonoBehaviour
     private LineRenderer lR;
     private Score[] score;
     private ZoomController zC;
+    private Message uiM;
 
     public Slider powerbar;
     public AudioSource SlidingAudio;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -71,7 +72,7 @@ public class StoneControllerV2 : MonoBehaviour
                 powerbar.value = power / 2;
                 currentpower.text = powerbar.value.ToString("#"); // # remove decimal
                 power += Time.deltaTime * 75;
-                
+
             }
             else if (Input.GetMouseButtonUp(0))
             {
@@ -82,10 +83,10 @@ public class StoneControllerV2 : MonoBehaviour
                     power = 200;
                 }
 
-                
+
                 rB.AddForce((throwDir.position - clone.transform.position) * power, ForceMode.Impulse);
 
-                
+
                 cloneActive = false;
                 power = 1f;
             }
@@ -107,8 +108,7 @@ public class StoneControllerV2 : MonoBehaviour
 
             if (turnTime <= 0)
             {
-                Debug.Log("turn timeout"); // remove this after gui has added
-                // sends a message to gui saying that time has run out for turn, switched turn
+                uiM.SetMessage("Turn timeout. Switching team...");
                 Destroy(clone);
                 SwitchTurn();
             }
@@ -126,7 +126,7 @@ public class StoneControllerV2 : MonoBehaviour
             {
                 SlidingAudio.Stop();
             }
-            
+
         }
         else
         {
@@ -141,13 +141,12 @@ public class StoneControllerV2 : MonoBehaviour
                 {
                     stoneShot = false;
                     delay += Time.deltaTime;
-                    
 
-                    if (delay >= 1f)
+                    if (delay >= 0.5f)
                     {
                         if (!clone.GetComponent<Collider>().bounds.Intersects(validArea.GetComponent<Collider>().bounds))
                         {
-                            // send a message to gui saying that the stone (clone) is not valid
+                            uiM.SetMessage("Stone removed: Invalid.");
                             Destroy(clone);
                         }
 
@@ -155,7 +154,7 @@ public class StoneControllerV2 : MonoBehaviour
                         SwitchTurn();
                         delay = 0f;
                     }
-                    
+
                 }
                 else
                 {
@@ -167,7 +166,7 @@ public class StoneControllerV2 : MonoBehaviour
                     {
                         rB.AddForce(Vector3.right, ForceMode.Impulse);
                     }
-                    
+
                 }
 
                 if (thrownTime > 10) // in case if stone (clone) is stuck or clips through the plane
@@ -175,6 +174,7 @@ public class StoneControllerV2 : MonoBehaviour
                     if (clone)
                         Destroy(clone);
 
+                    uiM.SetMessage("Throw timeout. Switching team...");
                     SwitchTurn();
                 }
 
@@ -191,13 +191,16 @@ public class StoneControllerV2 : MonoBehaviour
         {
             clone = Instantiate(stone1, spawnPos.position, spawnPos.rotation);
             clone.tag = "RedClone";
+            uiM.SetMessage("Red Team's turn.");
         }
         else
         {
             clone = Instantiate(stone2, spawnPos.position, spawnPos.rotation);
             clone.tag = "YellowClone";
+            uiM.SetMessage("Yellow Team's turn.");
         }
 
+        timerSlider.SetActive(true);
         powerbar.value = 0;
         currentpower.text = "0";
         zC = GameObject.FindGameObjectWithTag("ZoomController").GetComponent<ZoomController>();
@@ -224,27 +227,47 @@ public class StoneControllerV2 : MonoBehaviour
         {
             Destroy(clones[i]);
         }
+
+        clones = GameObject.FindGameObjectsWithTag("InvalidClone");
+        for (int i = 0; i < clones.Length; i++)
+        {
+            Destroy(clones[i]);
+        }
     }
 
-    private async void SwitchTurn() // a bit broken
+    private async void SwitchTurn()
     {
-        timerSlider.SetActive(true);
+        await Task.Delay(1500);
+
         if (round == maxRound && turn == Turn.yellow) // round ends
         {
             score[end - 1].SetScore();
-            await Task.Delay(1000);
-            Debug.Log(score[end - 1].GetTeam() + " won this end with a score of " + score[end - 1].GetScore());
+            await Task.Delay(1100);
+            uiM.SetMessage(score[end - 1].GetTeam() + " won: " + score[end - 1].GetScore() + " score(s).");
 
             if (end == maxEnd)
             {
-                Debug.Log("game ended"); // remove this after gui has added
+                uiM.SetMessage("Game ended.");
 
-                await Task.Delay(1000);
+                await Task.Delay(1100);
 
+                int redScore = 0, yellowScore = 0;
                 for (int i = 0; i < end; i++)
                 {
-                    Debug.Log("End " + end + ", " + score[i].GetTeam() + " won, Score " + score[i].GetScore());
+                    Debug.Log("End " + (i + 1) + ", " + score[i].GetTeam() + " won, Score " + score[i].GetScore());
+
+                    if (score[i].GetTeam() == "Red Team")
+                        redScore += score[i].GetScore();
+                    else if (score[i].GetTeam() == "Yellow Team")
+                        yellowScore += score[i].GetScore();
                 }
+
+                if (redScore > yellowScore)
+                    uiM.SetMessage("Red Team won the game with " + redScore + " score(s).");
+                else if (redScore < yellowScore)
+                    uiM.SetMessage("Yellow Team won the game with " + yellowScore + " score(s).");
+                else
+                    uiM.SetMessage("No team won.");
 
                 // gui pops up with winning team
             }
@@ -289,8 +312,9 @@ public class StoneControllerV2 : MonoBehaviour
         round = 1; // must be 1
         maxRound = 8; // default: 8
         end = 1; // must be 1
-        maxEnd = 1; // player preference (set from StartMenu)
+        maxEnd = PlayerPrefs.GetInt("round"); // player preference (set from StartMenu)
         lR = spawnPos.GetComponent<LineRenderer>();
+        uiM = GameObject.FindGameObjectWithTag("UIMessage").GetComponent<Message>();
 
         score = new Score[maxEnd];
         for (int i = 0; i < maxEnd; i++)
