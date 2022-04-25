@@ -19,6 +19,7 @@ public class StoneControllerV2 : MonoBehaviour
     [SerializeField] private ColorChange cc;
     [SerializeField] private GameObject timerSlider;
     [SerializeField] private GameObject winnerScreen;
+    [SerializeField] private Text PingText;
 
     private bool stoneShot = false;
     private GameObject clone;
@@ -185,6 +186,7 @@ public class StoneControllerV2 : MonoBehaviour
 
             lR.enabled = false;
         }
+        PingText.text = "Ping: " + PhotonNetwork.GetPing();
     }
 
     private void SpawnClone()

@@ -21,6 +21,10 @@ public class PhotonMultiPlayer : MonoBehaviour
     [SerializeField] private InputField JoinGameInput;
 
     [SerializeField] private GameObject StartButton;
+
+    public GameObject PlayerFeed;
+    public GameObject FeedGrid;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -28,6 +32,7 @@ public class PhotonMultiPlayer : MonoBehaviour
 
 
     }
+
     private void Start()
     {
         UsernameMenu.SetActive(true);
@@ -76,6 +81,18 @@ public class PhotonMultiPlayer : MonoBehaviour
     {
         PhotonNetwork.LoadLevel("OlympicGames");
     }
+
+    private void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel(0);
+    }
+
+    private void OnPlayerConnected(PhotonPlayer player)
+    {
+        
+    }
+    
 }
 
 
