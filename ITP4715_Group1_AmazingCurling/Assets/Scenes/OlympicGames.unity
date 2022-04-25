@@ -6316,6 +6316,7 @@ MonoBehaviour:
   PingText: {fileID: 1938439049}
   powerbar: {fileID: 127208132}
   SlidingAudio: {fileID: 1044534534239479492}
+  SlidingAudio1: {fileID: 2094532264}
 --- !u!4 &1425551567
 Transform:
   m_ObjectHideFlags: 0

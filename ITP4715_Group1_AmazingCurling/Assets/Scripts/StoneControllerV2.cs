@@ -44,17 +44,21 @@ public class StoneControllerV2 : MonoBehaviour
 
     public Slider powerbar;
     public AudioSource SlidingAudio;
+    public AudioSource SlidingAudio1;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         SetupController();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+       
         if (cloneActive)
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -123,11 +127,21 @@ public class StoneControllerV2 : MonoBehaviour
 
             if (stoneShot == true)
             {
-                SlidingAudio.Play();
+                if(stone1)
+                {
+                    SlidingAudio.Play();
+                    Debug.Log(SlidingAudio);
+                }
+                else
+                {
+                    SlidingAudio1.Play();
+                    Debug.Log(SlidingAudio1);
+                } 
             }
             else
             {
                 SlidingAudio.Stop();
+                SlidingAudio1.Stop();
             }
 
         }
@@ -186,6 +200,7 @@ public class StoneControllerV2 : MonoBehaviour
 
             lR.enabled = false;
         }
+
         PingText.text = "Ping: " + PhotonNetwork.GetPing();
     }
 
