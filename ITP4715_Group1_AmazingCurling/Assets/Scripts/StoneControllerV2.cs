@@ -18,6 +18,7 @@ public class StoneControllerV2 : MonoBehaviour
     [SerializeField] private Timer timer;
     [SerializeField] private ColorChange cc;
     [SerializeField] private GameObject timerSlider;
+    [SerializeField] private GameObject winnerScreen;
 
     private bool stoneShot = false;
     private GameObject clone;
@@ -38,6 +39,7 @@ public class StoneControllerV2 : MonoBehaviour
     private Score[] score;
     private ZoomController zC;
     private Message uiM;
+    private WinnerScreenController wSC;
 
     public Slider powerbar;
     public AudioSource SlidingAudio;
@@ -263,13 +265,22 @@ public class StoneControllerV2 : MonoBehaviour
                 }
 
                 if (redScore > yellowScore)
-                    uiM.SetMessage("Red Team won the game with " + redScore + " score(s).");
+                {
+                    wSC.SetWinner("Red Team", new Color32(200, 0, 0, 255));
+                    wSC.SetScore(redScore);
+                }
                 else if (redScore < yellowScore)
-                    uiM.SetMessage("Yellow Team won the game with " + yellowScore + " score(s).");
+                {
+                    wSC.SetWinner("Yellow Team", new Color32(200, 150, 0, 255));
+                    wSC.SetScore(yellowScore);
+                }
                 else
-                    uiM.SetMessage("No team won.");
+                {
+                    wSC.SetWinner("None", new Color32(255, 255, 255, 255));
+                    wSC.SetScore(0);
+                }
 
-                // gui pops up with winning team
+                winnerScreen.SetActive(true);
             }
             else
             {
@@ -315,6 +326,8 @@ public class StoneControllerV2 : MonoBehaviour
         maxEnd = PlayerPrefs.GetInt("round"); // player preference (set from StartMenu)
         lR = spawnPos.GetComponent<LineRenderer>();
         uiM = GameObject.FindGameObjectWithTag("UIMessage").GetComponent<Message>();
+        wSC = winnerScreen.GetComponent<WinnerScreenController>();
+        winnerScreen.SetActive(false);
 
         score = new Score[maxEnd];
         for (int i = 0; i < maxEnd; i++)

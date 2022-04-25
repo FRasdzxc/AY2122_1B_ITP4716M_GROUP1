@@ -11,6 +11,8 @@ TagManager:
   - ZoomController
   - InvalidClone
   - Score
+  - UIMessage
+  - WinnerScreen
   layers:
   - Default
   - TransparentFX
