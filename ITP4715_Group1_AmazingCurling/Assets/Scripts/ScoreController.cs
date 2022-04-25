@@ -47,13 +47,13 @@ public class ScoreController : MonoBehaviour
                     if (winTag == "RedClone")
                     {
                         winTeam = "Red Team";
-                        teamCode = 1;
+                        teamCode = 0;
                     }
 
                     else
                     {
                         winTeam = "Yellow Team";
-                        teamCode = 2;
+                        teamCode = 1;
                     }
 
 

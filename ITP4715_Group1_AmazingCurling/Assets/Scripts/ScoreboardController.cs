@@ -19,11 +19,21 @@ public class ScoreboardController : MonoBehaviour
     [SerializeField] private Text p1r5;
     [SerializeField] private Text p2r5;
     private int round;
-    Text text;
+    Text[] text = new Text[10];
     // Start is called before the first frame update
     void Start()
     {
         round = PlayerPrefs.GetInt("round");
+        text[0] = p1r1;
+        text[1] = p2r1;
+        text[2] = p1r2;
+        text[3] = p2r2;
+        text[4] = p1r3;
+        text[5] = p2r3;
+        text[6] = p1r4;
+        text[7] = p2r4;
+        text[8] = p1r5;
+        text[9] = p2r5;
     }
 
     // Update is called once per frame
@@ -42,8 +52,8 @@ public class ScoreboardController : MonoBehaviour
         }
 
     }
-    public void setScore(Text name, int score)
+    public void setScore(int team, int score)
     {
-        text.GetComponent<Text>().text = "" + score;
+        text[team].text = "" + score;
     }
 }

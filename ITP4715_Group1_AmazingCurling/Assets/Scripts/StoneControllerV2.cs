@@ -28,6 +28,8 @@ public class StoneControllerV2 : MonoBehaviour
     private float delay;
     private float turnTime;
     private float thrownTime;
+    private int x = 0, y = 1;
+    private int i = 0;
 
     private enum Turn { red, yellow };
     private Turn turn;
@@ -46,6 +48,10 @@ public class StoneControllerV2 : MonoBehaviour
 
     public Slider powerbar;
     public AudioSource SlidingAudio;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 
     // Start is called before the first frame update
@@ -127,7 +133,11 @@ public class StoneControllerV2 : MonoBehaviour
 
             if (stoneShot == true)
             {
+<<<<<<< Updated upstream
                 SlidingAudio.Play(); 
+=======
+               SlidingAudio.Play();
+>>>>>>> Stashed changes
             }
             else
             {
@@ -251,7 +261,24 @@ public class StoneControllerV2 : MonoBehaviour
         if (round == maxRound && turn == Turn.yellow) // round ends
         {
             score[end - 1].SetScore();
-
+           /* if (score[end - 1].GetScore() > 0)
+            {
+                if (sc.GetTeamCode() == 0)
+                {
+                    sbc.setScore(i + sc.GetTeamCode() + 1, score[end - 1].GetScore());
+                    i++; i++;
+                }
+                else { sbc.setScore(i + sc.GetTeamCode(), score[end - 1].GetScore());
+                    i++;i++;
+                }
+            }
+            else if (score[end - 1].GetScore() == 0)
+            {
+                sbc.setScore(x, 0);
+                sbc.setScore(y + end, 0);
+                x++;y++;
+                x++;y++;
+            }*/
             await Task.Delay(1100);
             uiM.SetMessage(score[end - 1].GetTeam() + " won: " + score[end - 1].GetScore() + " score(s).");
 

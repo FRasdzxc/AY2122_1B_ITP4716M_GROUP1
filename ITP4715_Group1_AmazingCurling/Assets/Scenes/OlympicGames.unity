@@ -3067,6 +3067,16 @@ MonoBehaviour:
   sb1: {fileID: 790262566}
   sb3: {fileID: 329540988}
   sb5: {fileID: 1426885818}
+  p1r1: {fileID: 198537767}
+  p2r1: {fileID: 607520612}
+  p1r2: {fileID: 894732876}
+  p2r2: {fileID: 1648046807}
+  p1r3: {fileID: 1708809265}
+  p2r3: {fileID: 822159788}
+  p1r4: {fileID: 0}
+  p2r4: {fileID: 0}
+  p1r5: {fileID: 0}
+  p2r5: {fileID: 0}
 --- !u!1 &665895118
 GameObject:
   m_ObjectHideFlags: 0
@@ -7431,6 +7441,7 @@ MonoBehaviour:
   PingText: {fileID: 1938439049}
   powerbar: {fileID: 127208132}
   SlidingAudio: {fileID: 1044534534239479492}
+  SlidingAudio1: {fileID: 0}
 --- !u!4 &1425551567
 Transform:
   m_ObjectHideFlags: 0
