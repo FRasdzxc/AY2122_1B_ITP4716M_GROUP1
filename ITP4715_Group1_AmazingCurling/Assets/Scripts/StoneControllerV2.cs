@@ -46,8 +46,6 @@ public class StoneControllerV2 : MonoBehaviour
 
     public Slider powerbar;
     public AudioSource SlidingAudio;
-    public AudioSource SlidingAudio1;
-
 
 
     // Start is called before the first frame update
@@ -129,21 +127,11 @@ public class StoneControllerV2 : MonoBehaviour
 
             if (stoneShot == true)
             {
-                if(stone1)
-                {
-                    SlidingAudio.Play();
-                    Debug.Log(SlidingAudio);
-                }
-                else
-                {
-                    SlidingAudio1.Play();
-                    Debug.Log(SlidingAudio1);
-                } 
+                SlidingAudio.Play(); 
             }
             else
             {
                 SlidingAudio.Stop();
-                SlidingAudio1.Stop();
             }
 
         }
