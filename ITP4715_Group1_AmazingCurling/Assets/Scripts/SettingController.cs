@@ -17,6 +17,11 @@ public class SettingController : MonoBehaviour
         Screen.fullScreen = isFullScreen;
     }
 
+    public void OpenSettings()
+    {
+        settings.SetActive(true);
+    }
+
     public void CloseSettings()
     {
         settings.SetActive(false);
