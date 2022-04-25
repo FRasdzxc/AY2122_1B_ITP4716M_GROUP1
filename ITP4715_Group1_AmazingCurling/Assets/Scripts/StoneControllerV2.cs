@@ -41,6 +41,8 @@ public class StoneControllerV2 : MonoBehaviour
     private ZoomController zC;
     private Message uiM;
     private WinnerScreenController wSC;
+    private ScoreboardController sbc;
+    private ScoreController sc;
 
     public Slider powerbar;
     public AudioSource SlidingAudio;
@@ -261,6 +263,7 @@ public class StoneControllerV2 : MonoBehaviour
         if (round == maxRound && turn == Turn.yellow) // round ends
         {
             score[end - 1].SetScore();
+
             await Task.Delay(1100);
             uiM.SetMessage(score[end - 1].GetTeam() + " won: " + score[end - 1].GetScore() + " score(s).");
 
@@ -301,6 +304,7 @@ public class StoneControllerV2 : MonoBehaviour
             }
             else
             {
+                stoneShot = false;
                 await Task.Delay(1000);
                 RemoveClones();
                 end++;

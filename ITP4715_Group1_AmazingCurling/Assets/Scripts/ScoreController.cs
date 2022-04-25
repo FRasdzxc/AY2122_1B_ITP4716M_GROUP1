@@ -12,6 +12,7 @@ public class ScoreController : MonoBehaviour
     private string winTeam;
     private int winScore;
     private bool canAddScore;
+    private int teamCode;
 
     // Start is called before the first frame update
     void Start()
@@ -44,9 +45,17 @@ public class ScoreController : MonoBehaviour
                     }
 
                     if (winTag == "RedClone")
+                    {
                         winTeam = "Red Team";
+                        teamCode = 1;
+                    }
+
                     else
+                    {
                         winTeam = "Yellow Team";
+                        teamCode = 2;
+                    }
+
 
                     //Debug.Log(winTeam + " wins! Score: " + winScore);
                 }
@@ -84,6 +93,11 @@ public class ScoreController : MonoBehaviour
         SetupController();
         col.enabled = true;
         canExpand = true;
+    }
+
+    public int GetTeamCode()
+    {
+        return teamCode;
     }
 
     public string GetTeam()

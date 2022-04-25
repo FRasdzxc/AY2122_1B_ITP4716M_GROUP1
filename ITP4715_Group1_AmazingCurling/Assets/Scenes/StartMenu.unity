@@ -1048,7 +1048,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 176035761}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 377349317}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &176035761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1069,8 +1081,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: ccb4f54734c088142a58dab75f56408b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1376,9 +1388,9 @@ RectTransform:
   - {fileID: 588010583}
   - {fileID: 176035759}
   - {fileID: 974829435}
-  - {fileID: 2029442663}
-  - {fileID: 1313785468}
   - {fileID: 1161476944}
+  - {fileID: 1313785468}
+  - {fileID: 2029442663}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1424,6 +1436,8 @@ MonoBehaviour:
   CreatGameInput: {fileID: 706889965}
   JoinGameInput: {fileID: 1274729857}
   StartButton: {fileID: 588010582}
+  PlayerFeed: {fileID: 0}
+  FeedGrid: {fileID: 0}
 --- !u!4 &384493214
 Transform:
   m_ObjectHideFlags: 0
@@ -2001,15 +2015,15 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1168120323}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: swapStatus
-        m_Mode: 1
+        m_MethodName: actMode
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &588010585
 MonoBehaviour:
@@ -2634,7 +2648,7 @@ GameObject:
   - component: {fileID: 841324434}
   - component: {fileID: 841324433}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2869,7 +2883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a5ead818211a80e43baba332e884460a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf7dffcc27ed48d4fb9be9214546c3a6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3290,7 +3304,7 @@ GameObject:
   - component: {fileID: 974829437}
   - component: {fileID: 974829436}
   m_Layer: 5
-  m_Name: RoundSelector
+  m_Name: ModeSelector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3634,7 +3648,7 @@ RectTransform:
   - {fileID: 1274729856}
   - {fileID: 706889964}
   m_Father: {fileID: 377349321}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3782,7 +3796,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ba3f6cff6259f49baa8d0e054ef012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g: {fileID: 974829434}
+  modeSelect: {fileID: 974829434}
+  setting: {fileID: 2029442662}
+  roundSelect: {fileID: 1313785467}
+  createjoin: {fileID: 1161476943}
 --- !u!114 &1168120324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4090,7 +4107,7 @@ GameObject:
   - component: {fileID: 1313785470}
   - component: {fileID: 1313785469}
   m_Layer: 5
-  m_Name: ChooseModel
+  m_Name: RoundSelector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6187,7 +6204,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 377349321}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

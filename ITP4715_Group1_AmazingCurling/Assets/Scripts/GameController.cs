@@ -5,14 +5,29 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private GameObject g;
+    [SerializeField] private GameObject modeSelect;
+    [SerializeField] private GameObject setting;
+    [SerializeField] private GameObject roundSelect;
+    [SerializeField] private GameObject createjoin;
     // Start is called before the first frame update
     public void SwapScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
-    public void swapStatus()
+    public void actMode(bool status)
     {
-        g.SetActive(true);
+        modeSelect.SetActive(status);
+    }
+    public void actRound(bool status)
+    {
+        roundSelect.SetActive(status);
+    }
+    public void actSetting(bool status)
+    {
+        setting.SetActive(status);
+    }
+    public void actJoin(bool status)
+    {
+        createjoin.SetActive(status);
     }
 }
