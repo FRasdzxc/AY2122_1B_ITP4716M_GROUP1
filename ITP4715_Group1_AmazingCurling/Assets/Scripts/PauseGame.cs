@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,8 +17,9 @@ public class PauseGame : MonoBehaviour
             pauseMenu.SetActive(true);
         }
     }
-    public void ResumeGame()
+    public async void ResumeGame()
     {
+        await Task.Delay(100); // prevents Resume button to overlap with stone throwing
         Time.timeScale = 1;
     }
 
