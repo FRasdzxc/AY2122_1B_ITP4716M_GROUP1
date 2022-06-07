@@ -7505,7 +7505,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1425551565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48f11bbd020c6d74393a6c5578c21759, type: 3}
+  m_Script: {fileID: 11500000, guid: f6de8bbdd28e74d48b54b075469180cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 963194227}
@@ -7521,6 +7521,9 @@ MonoBehaviour:
   timerSlider: {fileID: 804873205}
   winnerScreen: {fileID: 115499662}
   PingText: {fileID: 1938439049}
+  maxPower: 200
+  powerSpeed: 0.75
+  maxRound: 8
   powerbar: {fileID: 127208132}
   SlidingAudio: {fileID: 1044534534239479492}
 --- !u!4 &1425551567
