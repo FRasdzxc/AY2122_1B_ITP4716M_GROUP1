@@ -192,8 +192,6 @@ public class StoneControllerV2 : MonoBehaviour
 
             lR.enabled = false;
         }
-
-        PingText.text = "Ping: " + PhotonNetwork.GetPing();
     }
 
     private void SpawnClone()
