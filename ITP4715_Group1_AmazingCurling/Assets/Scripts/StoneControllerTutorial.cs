@@ -201,6 +201,7 @@ public class StoneControllerTutorial : MonoBehaviour
                         NextStep();
 
                     timer.resetTimer();
+                    RemoveClones();
                     SpawnClone();
                 }
                 //SwitchTurn();
@@ -244,6 +245,7 @@ public class StoneControllerTutorial : MonoBehaviour
                                     if (tutorialDialogueIndex == 15)
                                         NextStep();
 
+                                    RemoveClones();
                                     SpawnClone();
                                     timerSlider.SetActive(false);
                                 }
@@ -348,11 +350,14 @@ public class StoneControllerTutorial : MonoBehaviour
                 }
 
                 if (tutorialDialogueIndex == 4)
+                {
                     canChangeDirection = true;
+                }
 
                 if (tutorialDialogueIndex == 5)
                 {
                     await Task.Delay(100);
+                    RemoveClones();
                     SpawnClone();
                 }
 
@@ -360,6 +365,7 @@ public class StoneControllerTutorial : MonoBehaviour
                 {
                     canThrow = false;
                     canPickUp = true;
+                    RemoveClones();
                     SpawnClone();
                 }
 
@@ -388,6 +394,7 @@ public class StoneControllerTutorial : MonoBehaviour
                     canCountdown = false;
                     canDelay = true;
                     canIntersect = true;
+                    RemoveClones();
                     SpawnClone();
                     timerSlider.SetActive(false);
                 }
