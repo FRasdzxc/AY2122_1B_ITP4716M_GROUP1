@@ -2013,7 +2013,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 384493214}
-  - component: {fileID: 384493213}
   m_Layer: 0
   m_Name: MultiPlayerController
   m_TagString: Untagged
@@ -2021,28 +2020,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &384493213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 384493212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d1427f59cafd5f43b99f664834c4784, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VersioName: 0.1
-  UsernameMenu: {fileID: 377349317}
-  ConnecyPanel: {fileID: 1161476943}
-  CreateButton: {fileID: 951260572}
-  UsernameInput: {fileID: 390574467}
-  CreatGameInput: {fileID: 706889965}
-  JoinGameInput: {fileID: 1274729857}
-  StartButton: {fileID: 588010582}
-  PlayerFeed: {fileID: 0}
-  FeedGrid: {fileID: 0}
 --- !u!4 &384493214
 Transform:
   m_ObjectHideFlags: 0
@@ -2069,6 +2046,7 @@ GameObject:
   - component: {fileID: 390574469}
   - component: {fileID: 390574468}
   - component: {fileID: 390574467}
+  - component: {fileID: 390574470}
   m_Layer: 5
   m_Name: UsernameInput
   m_TagString: Untagged
@@ -2157,7 +2135,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384493213}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PhotonMultiPlayer, Assembly-CSharp
         m_MethodName: ChangeUserNameInput
         m_Mode: 1
@@ -2197,7 +2175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 66a86e85290aefa4786a2d075cba6240, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ccb4f54734c088142a58dab75f56408b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2215,6 +2193,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 390574465}
   m_CullTransparentMesh: 1
+--- !u!114 &390574470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390574465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85950f674a717c847955f8ae72d31fce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  username: {fileID: 97589528}
+  start: {fileID: 588010582}
 --- !u!1 &427367587
 GameObject:
   m_ObjectHideFlags: 0
@@ -4546,7 +4538,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384493213}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PhotonMultiPlayer, Assembly-CSharp
         m_MethodName: CreatGame
         m_Mode: 1
@@ -4786,7 +4778,7 @@ Transform:
   m_GameObject: {fileID: 1000112442}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 60, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 20, z: 120}
+  m_LocalScale: {x: 0.25, y: 54.850002, z: 120}
   m_Children: []
   m_Father: {fileID: 1912238092}
   m_RootOrder: 1
@@ -6796,7 +6788,7 @@ Transform:
   m_GameObject: {fileID: 1539806030}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -60, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 20, z: 120}
+  m_LocalScale: {x: 0.25, y: 54.850002, z: 120}
   m_Children: []
   m_Father: {fileID: 1912238092}
   m_RootOrder: 0
@@ -7328,7 +7320,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384493213}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PhotonMultiPlayer, Assembly-CSharp
         m_MethodName: JoinGame
         m_Mode: 1
@@ -7969,7 +7961,7 @@ Transform:
   m_GameObject: {fileID: 1766067358}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 60}
-  m_LocalScale: {x: 120, y: 20, z: 0.25}
+  m_LocalScale: {x: 120, y: 54.850002, z: 0.2449925}
   m_Children: []
   m_Father: {fileID: 1912238092}
   m_RootOrder: 3
