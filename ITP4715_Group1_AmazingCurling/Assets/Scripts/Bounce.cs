@@ -5,11 +5,13 @@ using UnityEngine;
 public class Bounce : MonoBehaviour
 {
     private Rigidbody rB;
+    [SerializeField] private float multiplier = 15f; // default: 15f;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerStay(Collider collider)
     {
-        rB = collision.gameObject.GetComponent<Rigidbody>();
-        Debug.Log(rB.velocity);
-        rB.AddForce(rB.gameObject.transform.TransformDirection(rB.velocity) * -25, ForceMode.Impulse); // replace -25 with any -ve number
+        rB = collider.gameObject.GetComponent<Rigidbody>();
+
+        if (rB)
+            rB.AddForce(transform.up * multiplier, ForceMode.Impulse);
     }
 }

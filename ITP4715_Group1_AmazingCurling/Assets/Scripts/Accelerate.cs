@@ -5,11 +5,13 @@ using UnityEngine;
 public class Accelerate : MonoBehaviour
 {
     private Rigidbody rB;
+    [SerializeField] private float multiplier = 5f; // default: 5f;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerStay(Collider collider)
     {
-        rB = collision.gameObject.GetComponent<Rigidbody>();
-        Debug.Log(rB.velocity);
-        rB.AddForce(rB.gameObject.transform.TransformDirection(rB.velocity) * 25, ForceMode.Impulse); // replace 25 with any number
+        rB = collider.gameObject.GetComponent<Rigidbody>();
+
+        if (rB)
+            rB.AddForce(transform.forward * multiplier, ForceMode.Impulse);
     }
 }

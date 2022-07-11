@@ -19,6 +19,7 @@ public class StoneControllerInsane: MonoBehaviour
     [SerializeField] private ColorChange cc;
     [SerializeField] private GameObject timerSlider;
     [SerializeField] private GameObject winnerScreen;
+    [SerializeField] private GameObject cardPanel;
     [SerializeField] private Text PingText;
 
     private bool stoneShot = false;
@@ -48,9 +49,14 @@ public class StoneControllerInsane: MonoBehaviour
     private WinnerScreenController wSC;
     private ScoreboardController sbc;
     private ScoreController sc;
+    private ObstacleController oC;
 
     public Slider powerbar;
     public AudioSource SlidingAudio;
+
+    public enum PowerUp { Destroyer, HurryUp, LostDirections, MoreTime, SafeZone };
+    private PowerUp powerUp;
+    private bool powerUpActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -116,6 +122,12 @@ public class StoneControllerInsane: MonoBehaviour
                 mainCamera.transform.eulerAngles = new Vector3(30f, 0f, 0f);
             }
 
+            if (Input.GetKeyDown(KeyCode.E) && !powerUpActive)
+            {
+                Time.timeScale = 0;
+                cardPanel.SetActive(true);
+            }
+
             if (turnTime <= 0) // timeout
             {
                 uiM.SetMessage("Turn timeout. Switching team...", new Color32(255, 255, 255, 255));
@@ -162,6 +174,8 @@ public class StoneControllerInsane: MonoBehaviour
                         SwitchTurn();
                         canDelay = false;
                         delay = 0;
+
+                        Destroy(clone.GetComponent<DestroyOpponentStone>());
                     }
 
                 }
@@ -207,6 +221,7 @@ public class StoneControllerInsane: MonoBehaviour
             clone.tag = "YellowClone";
         }
 
+        timer.resetTimer();
         timerSlider.SetActive(true);
         powerbar.value = 0;
         currentpower.text = "0";
@@ -217,6 +232,9 @@ public class StoneControllerInsane: MonoBehaviour
         canDelay = true;
         turnTime = 20f;
         thrownTime = 0f;
+        oC.showObstacle();
+        lR.startWidth = 1f;
+        lR.endWidth = 1f;
 
         mainCamera.transform.position = clone.transform.position + new Vector3(0, 2, -2.75f);
         mainCamera.transform.eulerAngles = new Vector3(30f, 0f, 0f);
@@ -250,11 +268,65 @@ public class StoneControllerInsane: MonoBehaviour
         clone = null;
     }
 
+    public async void CloseCardPanel() // close power-up cards panel
+    {
+        cardPanel.SetActive(false);
+        await Task.Delay(100);
+        Time.timeScale = 1;
+    }
+
+    public async void SelectCard(Button card) // select card and close power-up card panel
+    {
+        card.interactable = false;
+        cardPanel.SetActive(false);
+        await Task.Delay(100);
+        Time.timeScale = 1;
+    }
+
+    public void SetPowerUp(int powerIndex)
+    {
+        if ((PowerUp)powerIndex == PowerUp.Destroyer)
+        {
+            powerUp = PowerUp.Destroyer;
+            powerUpActive = true;
+
+            //clone.GetComponent<DestroyOpponentStone>().enabled = true;
+            clone.AddComponent<DestroyOpponentStone>();
+        }
+        else if ((PowerUp)powerIndex == PowerUp.HurryUp)
+        {
+            powerUp = PowerUp.HurryUp;
+            powerUpActive = true;
+        }
+        else if ((PowerUp)powerIndex == PowerUp.LostDirections)
+        {
+            powerUp = PowerUp.LostDirections;
+            powerUpActive = true;
+        }
+        else if ((PowerUp)powerIndex == PowerUp.MoreTime)
+        {
+            powerUp = PowerUp.MoreTime;
+            powerUpActive = true;
+
+            turnTime += 10f;
+            timer.addTime(10f);
+        }
+        else if ((PowerUp)powerIndex == PowerUp.SafeZone)
+        {
+            powerUp = PowerUp.SafeZone;
+            powerUpActive = true;
+
+            oC.hideObstacles();
+        }
+    }
+
     private async void SwitchTurn() // this function controls end, round and turn
     {
         if (round != 0)
             await Task.Delay(1500);
         clone = null;
+
+        oC.hideObstacles();
 
         if (round == maxRound && turn == Turn.yellow) // round ends
         {
@@ -350,6 +422,36 @@ public class StoneControllerInsane: MonoBehaviour
         }
         timer.resetTimer();
         cc.resetColor();
+
+        if (powerUpActive)
+        {
+            if (powerUp == PowerUp.Destroyer)
+            {
+                powerUpActive = false;
+            }
+            else if (powerUp == PowerUp.HurryUp)
+            {
+                turnTime -= 10f;
+                timer.addTime(-10f);
+
+                powerUpActive = false;
+            }
+            else if (powerUp == PowerUp.LostDirections)
+            {
+                lR.startWidth = 0f;
+                lR.endWidth = 0f;
+
+                powerUpActive = false;
+            }
+            else if (powerUp == PowerUp.MoreTime)
+            {
+                powerUpActive = false;
+            }
+            else if (powerUp == PowerUp.SafeZone)
+            {
+                powerUpActive = false;
+            }
+        }
     }
 
     private void SetupController() // useful for multiple ends (chosen by player in StartMenu)
@@ -368,6 +470,7 @@ public class StoneControllerInsane: MonoBehaviour
         uiM = GameObject.FindGameObjectWithTag("UIMessage").GetComponent<Message>(); // top-right corner message
         wSC = winnerScreen.GetComponent<WinnerScreenController>(); // winner screen
         winnerScreen.SetActive(false);
+        oC = GetComponent<ObstacleController>();
 
         score = new Score[maxEnd]; // scores for each end (e.g. 3 ends -> 3 scoreGobj)
         for (int i = 0; i < maxEnd; i++)

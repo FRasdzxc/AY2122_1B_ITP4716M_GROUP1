@@ -37,4 +37,9 @@ public class Timer : MonoBehaviour
     {
         status = false;
     }
+
+    public void addTime(float duration)
+    {
+        myTimer += duration;
+    }
 }
