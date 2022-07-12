@@ -20,6 +20,7 @@ public class StoneControllerInsane: MonoBehaviour
     [SerializeField] private GameObject timerSlider;
     [SerializeField] private GameObject winnerScreen;
     [SerializeField] private GameObject cardPanel;
+    [SerializeField] private GameObject curlingSheet;
     [SerializeField] private Text PingText;
 
     private bool stoneShot = false;
@@ -54,7 +55,7 @@ public class StoneControllerInsane: MonoBehaviour
     public Slider powerbar;
     public AudioSource SlidingAudio;
 
-    public enum PowerUp { Destroyer, HurryUp, LostDirections, MoreTime, SafeZone };
+    public enum PowerUp { HotTemp, HurryUp, LostDirections, MoreTime, SafeZone };
     private PowerUp powerUp;
     private bool powerUpActive = false;
 
@@ -235,6 +236,7 @@ public class StoneControllerInsane: MonoBehaviour
         oC.showObstacle();
         lR.startWidth = 1f;
         lR.endWidth = 1f;
+        curlingSheet.GetComponent<MeshCollider>().material.dynamicFriction = 0.06f;
 
         mainCamera.transform.position = clone.transform.position + new Vector3(0, 2, -2.75f);
         mainCamera.transform.eulerAngles = new Vector3(30f, 0f, 0f);
@@ -285,13 +287,10 @@ public class StoneControllerInsane: MonoBehaviour
 
     public void SetPowerUp(int powerIndex)
     {
-        if ((PowerUp)powerIndex == PowerUp.Destroyer)
+        if ((PowerUp)powerIndex == PowerUp.HotTemp)
         {
-            powerUp = PowerUp.Destroyer;
+            powerUp = PowerUp.HotTemp;
             powerUpActive = true;
-
-            //clone.GetComponent<DestroyOpponentStone>().enabled = true;
-            clone.AddComponent<DestroyOpponentStone>();
         }
         else if ((PowerUp)powerIndex == PowerUp.HurryUp)
         {
@@ -425,8 +424,10 @@ public class StoneControllerInsane: MonoBehaviour
 
         if (powerUpActive)
         {
-            if (powerUp == PowerUp.Destroyer)
+            if (powerUp == PowerUp.HotTemp)
             {
+                curlingSheet.GetComponent<MeshCollider>().material.dynamicFriction = 0.03f;
+
                 powerUpActive = false;
             }
             else if (powerUp == PowerUp.HurryUp)

@@ -437,7 +437,7 @@ Transform:
   - {fileID: 370687866}
   - {fileID: 1093851430}
   m_Father: {fileID: 1972799906}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &37466606
 GameObject:
@@ -5763,9 +5763,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Effective Immediately.
+  m_Text: 'Effective Next Turn.
 
-    Destroys 1 opponent stone on impact.'
+    Makes ice sheets 2x slippery.'
 --- !u!222 &923798641
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7624,7 +7624,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6c51fafa7d49bd649ab6bae304845057, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 38904f8ede8e10449bde0eca1bead56a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -9545,7 +9545,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1425551567}
-  - component: {fileID: 1425551566}
   - component: {fileID: 1425551568}
   - component: {fileID: 1425551569}
   m_Layer: 0
@@ -9555,36 +9554,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1425551566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425551565}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48f11bbd020c6d74393a6c5578c21759, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 963194227}
-  stone1: {fileID: 1044534534239479489}
-  stone2: {fileID: 2094532260}
-  scoreGobj: {fileID: 2138779201}
-  spawnPos: {fileID: 1689517855}
-  throwDir: {fileID: 134575246}
-  validArea: {fileID: 706725686}
-  currentpower: {fileID: 599494161}
-  timer: {fileID: 2067835919}
-  cc: {fileID: 1556430384}
-  timerSlider: {fileID: 804873205}
-  winnerScreen: {fileID: 115499662}
-  PingText: {fileID: 1938439049}
-  maxPower: 200
-  powerSpeed: 0.75
-  maxRound: 8
-  powerbar: {fileID: 127208132}
-  SlidingAudio: {fileID: 1044534534239479492}
 --- !u!4 &1425551567
 Transform:
   m_ObjectHideFlags: 0
@@ -9624,6 +9593,7 @@ MonoBehaviour:
   timerSlider: {fileID: 804873205}
   winnerScreen: {fileID: 115499662}
   cardPanel: {fileID: 1442909306}
+  curlingSheet: {fileID: 240923912}
   PingText: {fileID: 1938439049}
   maxPower: 200
   powerSpeed: 0.75
@@ -9646,6 +9616,7 @@ MonoBehaviour:
   - {fileID: 898981948}
   - {fileID: 12077294}
   - {fileID: 22464150}
+  - {fileID: 1858330791}
 --- !u!1 &1426885818
 GameObject:
   m_ObjectHideFlags: 0
@@ -12742,6 +12713,116 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840001569}
   m_CullTransparentMesh: 1
+--- !u!1 &1858330791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1858330792}
+  - component: {fileID: 1858330796}
+  - component: {fileID: 1858330795}
+  - component: {fileID: 1858330794}
+  - component: {fileID: 1858330793}
+  m_Layer: 0
+  m_Name: EnlargePad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1858330792
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858330791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
+  m_LocalScale: {x: 0.24999999, y: 1, z: 0.25}
+  m_Children: []
+  m_Father: {fileID: 1972799906}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1858330793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858330791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5794a86db806f24ca4bae340befc983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &1858330794
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858330791}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1858330795
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858330791}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ad32324c08c1818488b76c9ad6601853, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1858330796
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858330791}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1858910830
 GameObject:
   m_ObjectHideFlags: 0
@@ -13406,6 +13487,7 @@ Transform:
   m_Children:
   - {fileID: 898981949}
   - {fileID: 12077295}
+  - {fileID: 1858330792}
   - {fileID: 22464151}
   m_Father: {fileID: 0}
   m_RootOrder: 21
