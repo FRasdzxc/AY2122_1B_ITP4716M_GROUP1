@@ -3620,6 +3620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1042872928}
+  snow: {fileID: 4775563337684029310, guid: a2bd6c8f63481dc4cb312bea4229f875, type: 3}
 --- !u!1 &607520610
 GameObject:
   m_ObjectHideFlags: 0
@@ -11735,6 +11736,7 @@ MonoBehaviour:
   setting: {fileID: 0}
   roundSelect: {fileID: 0}
   createjoin: {fileID: 0}
+  snow: {fileID: 0}
 --- !u!1 &1747571671
 GameObject:
   m_ObjectHideFlags: 0

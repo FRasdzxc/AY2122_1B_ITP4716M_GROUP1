@@ -9,7 +9,10 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject setting;
     [SerializeField] private GameObject roundSelect;
     [SerializeField] private GameObject createjoin;
+    [SerializeField] private ParticleSystem snow;
     // Start is called before the first frame update
+
+
     public void SwapScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);

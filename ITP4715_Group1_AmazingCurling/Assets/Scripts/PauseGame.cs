@@ -8,6 +8,7 @@ public class PauseGame : MonoBehaviour
 {
     private GameObject g;
     public GameObject pauseMenu;
+    [SerializeField] private ParticleSystem snow;
     // Update is called once per frame
     void Update()
     {

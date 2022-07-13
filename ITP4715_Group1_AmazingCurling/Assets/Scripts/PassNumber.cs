@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class PassNumber : MonoBehaviour
 {
+    public float ran;
     public void passRound(int num)
     {
         PlayerPrefs.SetInt("round", num);
+    }
+    public void randomRound()
+    {
+        ran = Random.Range(1, 10);
+        PlayerPrefs.SetFloat("round", ran);
     }
 }
