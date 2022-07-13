@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PassNumber : MonoBehaviour
 {
+    private void Start()
+    {
+        PlayerPrefs.SetInt("venue", 0);
+    }
     public float ran;
     public void passRound(int num)
     {

@@ -33,8 +33,7 @@ public class StoneControllerInsane: MonoBehaviour
     private bool canDelay;
     private float turnTime;
     private float thrownTime;
-    private int x = 0, y = 1;
-    private int i = 0;
+
 
     private enum Turn { red, yellow };
     private Turn turn;
