@@ -2934,6 +2934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1042872928}
+  snow: {fileID: 0}
 --- !u!1 &607520610
 GameObject:
   m_ObjectHideFlags: 0
@@ -8158,7 +8159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: c9b271b6fa29ace43b1d0e1df6f25978, type: 2}
+  m_Material: {fileID: 2100000, guid: 1324aa94970adcb419eea5aa8822e462, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -8197,7 +8198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 1556430380}
-  mat: {fileID: 2100000, guid: c9b271b6fa29ace43b1d0e1df6f25978, type: 2}
+  mat: {fileID: 2100000, guid: 1324aa94970adcb419eea5aa8822e462, type: 2}
   duration: 20
   time: 0
 --- !u!1 &1578733717
@@ -9044,6 +9045,7 @@ MonoBehaviour:
   setting: {fileID: 0}
   roundSelect: {fileID: 0}
   createjoin: {fileID: 0}
+  snow: {fileID: 0}
 --- !u!1 &1747571671
 GameObject:
   m_ObjectHideFlags: 0
