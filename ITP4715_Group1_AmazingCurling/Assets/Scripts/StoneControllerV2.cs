@@ -52,6 +52,8 @@ public class StoneControllerV2 : MonoBehaviour
     public Slider powerbar;
     public AudioSource SlidingAudio;
 
+    [SerializeField] private GameObject SweepE;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -135,6 +137,8 @@ public class StoneControllerV2 : MonoBehaviour
             {
                 mainCamera.transform.position = clone.transform.position + new Vector3(0, 2, -2.75f); // camera focuses on the stone
                 mainCamera.transform.eulerAngles = new Vector3(30f, 0f, 0f);
+                SweepE.transform.position = clone.transform.position + Vector3.forward;
+                SweepE.SetActive(true);
 
                 Rigidbody rB = clone.GetComponent<Rigidbody>();
 
@@ -147,6 +151,10 @@ public class StoneControllerV2 : MonoBehaviour
 
                 if (rB.velocity.magnitude == 0) // if the clone stops after being thrown
                 {
+                    SweepE.GetComponent<Animation>().enabled = false;
+                    SweepE.GetComponent<Animation>().Rewind();
+                    SweepE.SetActive(false);
+
                     if (canDelay)
                         delay += Time.deltaTime; // starts delay so there is a small pause after the stone stops
                     
@@ -170,10 +178,12 @@ public class StoneControllerV2 : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.LeftArrow)) // sweep stone
                     {
                         rB.AddForce(-Vector3.right * 0.5f, ForceMode.Impulse); // sweep left
+                        SweepE.GetComponent<Animation>().enabled = true;
                     }
                     else if (Input.GetKeyDown(KeyCode.RightArrow))
                     {
                         rB.AddForce(Vector3.right * 0.5f, ForceMode.Impulse); // sweep right
+                        SweepE.GetComponent<Animation>().enabled = true;
                     }
 
                 }

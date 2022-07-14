@@ -2786,19 +2786,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 15
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-  m_RootOrder: 13
-=======
-  m_RootOrder: 15
->>>>>>> 7ca6a548e72dc7d99492c9e205d9087b0f77404b
-=======
-  m_RootOrder: 15
->>>>>>> 7ca6a548e72dc7d99492c9e205d9087b0f77404b
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &390574465
 GameObject:
@@ -3401,7 +3389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &563141830
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4776,7 +4764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &756878442
 RectTransform:
   m_ObjectHideFlags: 0

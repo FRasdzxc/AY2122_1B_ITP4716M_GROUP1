@@ -18,7 +18,7 @@ public class Sweep : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             SweepE.SetActive(true);
-            SweepE.transform.position =Vector3.MoveTowards(SweepE.transform.position, B.transform.position, 0.01f);
+            // SweepE.transform.position =Vector3.MoveTowards(SweepE.transform.position, B.transform.position, 0.01f);
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
